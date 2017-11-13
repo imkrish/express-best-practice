@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"npm run tsc:w\" \"nodemon dist/app.js\"",
+    "start": "concurrently \"npm run tsc:w\" \"nodemon dist/index.js\"",
     "tsc:w": "tsc -w -p ./dev.tsconfig.json",
     "build": "tsc -p ./prod.tsconfig.json && ncp './src/assets' './dist/assets'",
     "lint": "tslint src/**/*.ts --fix",
