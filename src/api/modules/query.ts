@@ -3,11 +3,11 @@ import { Model, Document } from 'mongoose'
 import * as R from 'ramda'
 
 const controllers = {
-    createOne(model: Model<any>, body: any) {
+    createOne<T extends Document>(model: Model<T>, body: T) {
         return model.create(body)
     },
 
-    updateOne(docToUpdate: Document, update: any) {
+    updateOne<T>(docToUpdate: Document, update: T) {
         R.merge(docToUpdate, update)
         return docToUpdate.save()
     },
@@ -20,22 +20,22 @@ const controllers = {
         return Promise.resolve(docToGet)
     },
 
-    getAll(model: Model<any>) {
+    getAll<T extends Document>(model: Model<T>) {
         return model.find({})
     },
 
-    findById(model: Model<any>, id: string) {
+    findById<T extends Document>(model: Model<T>, id: string) {
         return model.findById(id)
     },
 }
 
-const createOne = (model: Model<any>) => (req: Request, res: Response, next: NextFunction) => {
+const createOne = <T extends Document>(model: Model<T>) => (req: Request, res: Response, next: NextFunction) => {
     return controllers.createOne(model, req.body)
         .then((doc) => res.status(201).json(doc))
         .catch((error) => next(error))
 }
 
-const updateOne = (_model: Model<any>) => async (req: Request, res: Response, next: NextFunction) => {
+const updateOne = <T extends Document>(_model: Model<T>) => async (req: Request, res: Response, next: NextFunction) => {
     const docToUpdate = (req as any).docFromId
     const update = req.body
 
@@ -44,47 +44,49 @@ const updateOne = (_model: Model<any>) => async (req: Request, res: Response, ne
         .catch((error) => next(error))
 }
 
-export const deleteOne = (_model: Model<any>) => (req: Request, res: Response, next: NextFunction) => {
-    return controllers.deleteOne((req as any).docFromId)
-        .then((doc) => res.status(201).json(doc))
+export const deleteOne = <T extends Document>(_model: Model<T>) =>
+    (req: Request, res: Response, next: NextFunction) => {
+        return controllers.deleteOne((req as any).docFromId)
+            .then((doc) => res.status(201).json(doc))
+            .catch((error) => next(error))
+    }
+
+export const getOne = <T extends Document>(_model: Model<T>) => (req: Request, res: Response, next: NextFunction) => {
+    return controllers.getOne((req as any).docFromId)
+        .then((doc) => res.status(200).json(doc))
+        .catch((error) => next(error))
+  }
+
+export const getAll = <T extends Document>(model: Model<T>) => (_req: Request, res: Response, next: NextFunction) => {
+    return controllers.getAll(model)
+        .then((docs) => res.json(docs))
         .catch((error) => next(error))
 }
 
-export const getOne = (_model: Model<any>) => (req: Request, res: Response, next: NextFunction) => {
-    return controllers.getOne((req as any).docFromId)
-      .then((doc) => res.status(200).json(doc))
-      .catch((error) => next(error))
-  }
+export const findById = <T extends Document>(model: Model<T>) =>
+    (req: Request, _res: Response, next: NextFunction, id: string) => {
+        return controllers.findById(model, id)
+            .then((doc) => {
+                if (!doc) {
+                    next(new Error('Not Found Error'))
+                } else {
+                    (req as any).docFromId = doc
+                    next()
+                }
+            })
+            .catch((error) => {
+                next(error)
+            })
+    }
 
-export const getAll = (model: Model<any>) => (_req: Request, res: Response, next: NextFunction) => {
-    return controllers.getAll(model)
-      .then((docs) => res.json(docs))
-      .catch((error) => next(error))
-  }
-
-export const findById = (model: Model<any>) => (req: Request, _res: Response, next: NextFunction, id: string) => {
-    return controllers.findById(model, id)
-      .then((doc) => {
-        if (!doc) {
-          next(new Error('Not Found Error'))
-        } else {
-          (req as any).docFromId = doc
-          next()
-        }
-      })
-      .catch((error) => {
-        next(error)
-      })
-  }
-
-export const generateController = (model: Model<any>, overrides = {}) => {
+export const generateController = <T extends Document>(model: Model<T>, overrides = {}) => {
     const defaults = {
-        findById: findById(model),
-        getAll: getAll(model),
-        getOne: getOne(model),
-        deleteOne: deleteOne(model),
-        updateOne: updateOne(model),
-        createOne: createOne(model),
+        findById: findById<T>(model),
+        getAll: getAll<T>(model),
+        getOne: getOne<T>(model),
+        deleteOne: deleteOne<T>(model),
+        updateOne: updateOne<T>(model),
+        createOne: createOne<T>(model),
     }
 
     return {...defaults, ...overrides}
