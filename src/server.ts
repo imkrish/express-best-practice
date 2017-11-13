@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { setupMiddleware } from './middleware/setupMiddleware'
-import { apiRouter } from './api/apiRouter'
 import { globalErrorHandling } from './middleware/globalErrorHandling'
+import { apiRouter } from './api/api.router'
 
 // export the app for testing
 export const app = express()
