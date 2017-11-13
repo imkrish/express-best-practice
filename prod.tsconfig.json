@@ -5,6 +5,7 @@
       "outDir": "./dist",
       "sourceMap": false,
       "noUnusedLocals": true,
-      "noUnusedParameters": true
+      "noUnusedParameters": true,
+      "noImplicitAny": true
     }
   }
