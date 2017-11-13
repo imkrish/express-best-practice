@@ -1,24 +1,4 @@
-import { Request, Response } from 'express'
+import { generateController } from '../modules/query'
+import { IPlaylistModel, Playlist } from './playlist.model'
 
-export const playlistController = {
-    getAll: (req: Request, res: Response) => {
-        console.log(req, res)
-        const data = { hello: 'world' }
-        res.json(data)
-    },
-    createOne: (req: Request, res: Response) => {
-        console.log(req, res)
-    },
-    getOne: (req: Request, res: Response) => {
-        console.log(req, res)
-    },
-    updateOne: (req: Request, res: Response) => {
-        console.log(req, res)
-    },
-    deleteOne: (req: Request, res: Response) => {
-        console.log(req, res)
-    },
-    findById: (req: Request, res: Response) => {
-        console.log(req, res)
-    },
-}
+export const playlistController = generateController<IPlaylistModel>(Playlist)
