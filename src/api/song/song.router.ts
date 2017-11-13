@@ -3,6 +3,8 @@ import { songController } from './song.controller'
 
 export const songRouter = express.Router()
 
+songRouter.param('id', songController.findById)
+
 songRouter.route('/')
     .get(songController.getAll)
     .post(songController.createOne)

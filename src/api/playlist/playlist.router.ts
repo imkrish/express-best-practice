@@ -3,6 +3,8 @@ import { playlistController } from './playlist.controller'
 
 export const playlistRouter = express.Router()
 
+playlistRouter.param('id', playlistController.findById)
+
 playlistRouter.route('/')
     .get(playlistController.getAll)
     .post(playlistController.createOne)
