@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken'
 import * as expressJwt from 'express-jwt'
 import { appConfig } from '../../config/appConfig'
 import { Request, Response, NextFunction } from 'express'
-import { User } from '../user/user.model'
+import { User } from '../resources/user/user.model'
 
 const ACCESS_TOKEN = 'access_token'
 
