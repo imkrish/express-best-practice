@@ -7,7 +7,8 @@ import { User } from '../resources/user/user.model'
 const ACCESS_TOKEN = 'access_token'
 
 // this will call next if token is valid and send error
-// if its not. It will attached the decoded token to req.user
+// if it's not. It will attached the decoded token to req.user
+// req.user.id (check signtoken function first param)
 const checkToken = expressJwt({ secret: appConfig.secrets.jwtSecret })
 
 export const signin = (req: Request, res: Response, _next: NextFunction) => {
