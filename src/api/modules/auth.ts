@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 import * as expressJwt from 'express-jwt'
+import * as bcrypt from 'bcrypt'
 import { appConfig } from '../../config/appConfig'
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../resources/user/user.model'
@@ -11,34 +12,25 @@ const ACCESS_TOKEN = 'access_token'
 // req.user.id (check signtoken function first param)
 const checkToken = expressJwt({ secret: appConfig.secrets.jwtSecret })
 
-export const signin = (req: Request, res: Response, _next: NextFunction) => {
+const authenticate = (plainTextPassword: string, passwordHash: string) => (
+    bcrypt.compareSync(plainTextPassword, passwordHash)
+)
+
+const hashPassword = (plainTextPassword: string) => {
+    if (!plainTextPassword) {
+        throw new Error('Could not save user')
+    }
+
+    const salt = bcrypt.genSaltSync(10)
+    return bcrypt.hashSync(plainTextPassword, salt)
+}
+
+const signin = (req: Request, res: Response, _next: NextFunction) => {
     const token = signToken(req.user.id)
     res.json({ token })
 }
 
-export const decodeToken = (req: Request, res: Response, next: NextFunction) => {
-    if (req.query && req.query.hasOwnProperty(ACCESS_TOKEN)) {
-        req.headers.authorization = 'Bearer ' + req.query[ACCESS_TOKEN]
-    }
-
-    checkToken(req, res, next)
-}
-
-export const getFreshUser = (req: Request, res: Response, next: NextFunction) => {
-    User.findById(req.user.id)
-        .then((user) => {
-            if (!user) {
-                res.status(401).send('Unauthorized')
-                return
-            }
-
-            req.user = user
-            next()
-        })
-        .catch((err: Error) => next(err))
-}
-
-export const verifyUser = (req: Request, res: Response, next: NextFunction) => {
+const verifyUser = (req: Request, res: Response, next: NextFunction) => {
     const username = req.body.username
     const password = req.body.password
 
@@ -54,7 +46,7 @@ export const verifyUser = (req: Request, res: Response, next: NextFunction) => {
                 return
             }
 
-            if (!user.authenticate(password)) {
+            if (!authenticate(password, user.passwordHash)) {
                 res.status(401).send('Wrong password')
                 return
             }
@@ -65,10 +57,33 @@ export const verifyUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: Error) => next(err))
 }
 
-export const signToken = (id: string) => jwt.sign(
+const decodeToken = (req: Request, res: Response, next: NextFunction) => {
+    if (req.query && req.query.hasOwnProperty(ACCESS_TOKEN)) {
+        req.headers.authorization = 'Bearer ' + req.query[ACCESS_TOKEN]
+    }
+
+    checkToken(req, res, next)
+}
+
+const getFreshUser = (req: Request, res: Response, next: NextFunction) => {
+    User.findById(req.user.id)
+        .then((user) => {
+            if (!user) {
+                res.status(401).send('Unauthorized')
+                return
+            }
+
+            req.user = user
+            next()
+        })
+        .catch((err: Error) => next(err))
+}
+
+const signToken = (id: string) => jwt.sign(
     { id },
     appConfig.secrets.jwtSecret,
     { expiresIn: appConfig.expireTime },
 )
 
 export const authProtectMiddlewares = appConfig.disableAuth ? [] : [decodeToken, getFreshUser]
+export const signinMiddlewares = [verifyUser, signin]
