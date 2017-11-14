@@ -16,11 +16,6 @@ export const signin = (req: Request, res: Response, _next: NextFunction) => {
 }
 
 export const decodeToken = (req: Request, res: Response, next: NextFunction) => {
-    if (appConfig.disableAuth) {
-        next()
-        return
-    }
-
     if (req.query && req.query.hasOwnProperty(ACCESS_TOKEN)) {
         req.headers.authorization = 'Bearer ' + req.query[ACCESS_TOKEN]
     }
@@ -29,7 +24,7 @@ export const decodeToken = (req: Request, res: Response, next: NextFunction) => 
 }
 
 export const getFreshUser = (req: Request, res: Response, next: NextFunction) => {
-    return User.findById(req.user.id)
+    User.findById(req.user.id)
         .then((user) => {
             if (!user) {
                 res.status(401).send('Unauthorized')
@@ -75,4 +70,4 @@ export const signToken = (id: string) => jwt.sign(
     { expiresIn: appConfig.expireTime },
 )
 
-export const authProtectMiddlewares = [decodeToken, getFreshUser]
+export const authProtectMiddlewares = appConfig.disableAuth ? [] : [decodeToken, getFreshUser]
