@@ -5,6 +5,8 @@ export const appConfig = {
 
     port: 3003,
 
+    mongodbUri: 'mongodb://localhost/jams',
+
     secrets: {
         jwtSecret: process.env.JWT_SECRET,
     },

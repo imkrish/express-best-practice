@@ -8,7 +8,7 @@ import { connectToMongoDB } from './db'
 export const app = express()
 
 // connect to mongo db
-export const mongoDB = connectToMongoDB()
+connectToMongoDB()
 
 // setup the app midleware
 setupMiddleware(app)
