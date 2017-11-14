@@ -16,14 +16,14 @@ const authenticate = (plainTextPassword: string, passwordHash: string) => (
     bcrypt.compareSync(plainTextPassword, passwordHash)
 )
 
-const hashPassword = (plainTextPassword: string) => {
-    if (!plainTextPassword) {
-        throw new Error('Could not save user')
-    }
+// const hashPassword = (plainTextPassword: string) => {
+//     if (!plainTextPassword) {
+//         throw new Error('Could not save user')
+//     }
 
-    const salt = bcrypt.genSaltSync(10)
-    return bcrypt.hashSync(plainTextPassword, salt)
-}
+//     const salt = bcrypt.genSaltSync(10)
+//     return bcrypt.hashSync(plainTextPassword, salt)
+// }
 
 const signin = (req: Request, res: Response, _next: NextFunction) => {
     const token = signToken(req.user.id)
