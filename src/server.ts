@@ -20,7 +20,7 @@ app.use('/api', authProtectMiddlewares, apiRouter)
 
 // catch all
 app.all('*', (_req, res) => {
-    res.json({ok: true})
+    res.json({message: 'catch all *'})
 })
 
 // setup global error handling
