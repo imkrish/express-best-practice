@@ -3,6 +3,7 @@ import { setupMiddleware } from './middleware/setupMiddleware'
 import { globalErrorHandling } from './middleware/globalErrorHandling'
 import { apiRouter } from './api/api.router'
 import { connectToMongoDB } from './db'
+import { authProtectMiddlewares, signin } from './api/modules/auth'
 
 // export the app for testing
 export const app = express()
@@ -14,7 +15,8 @@ connectToMongoDB()
 setupMiddleware(app)
 
 // setup the api
-app.use('/api', apiRouter)
+app.use('/signin', signin)
+app.use('/api', authProtectMiddlewares, apiRouter)
 
 // catch all
 app.all('*', (_req, res) => {

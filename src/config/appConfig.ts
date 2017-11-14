@@ -8,6 +8,10 @@ export const appConfig = {
     mongodbUri: 'mongodb://localhost/jams',
 
     secrets: {
-        jwtSecret: process.env.JWT_SECRET,
+        jwtSecret: process.env.JWT_SECRET || 'abcdefghijklmnopqrst',
     },
+
+    expireTime: '1d',
+
+    disableAuth: false,
 }

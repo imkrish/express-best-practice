@@ -12,18 +12,24 @@
     "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./dev.tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- src/**/*.spec.ts --recursive --color --growl"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-jwt": "^5.3.0",
+    "jsonwebtoken": "^8.1.0",
     "mockgoose": "^7.3.3",
     "mongoose": "^4.13.1",
     "morgan": "^1.9.0",
     "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^1.0.0",
     "@types/body-parser": "^1.16.8",
     "@types/chai": "^4.0.4",
     "@types/chai-http": "^3.0.3",
     "@types/express": "^4.0.39",
+    "@types/express-jwt": "^0.0.38",
+    "@types/jsonwebtoken": "^7.2.3",
     "@types/mocha": "^2.2.44",
     "@types/mongoose": "^4.7.26",
     "@types/morgan": "^1.7.35",

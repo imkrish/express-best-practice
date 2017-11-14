@@ -10,5 +10,6 @@ export const connectToMongoDB = () =>
             if (err) {
                 console.log(err.message)
             }
-        })
-        .then(() => console.info(`Connected to mongo db uri: ${appConfig.mongodbUri} successfully.`))
+        },
+    )
+    .then(() => console.info(`Connected to mongo db uri: ${appConfig.mongodbUri} successfully.`))
