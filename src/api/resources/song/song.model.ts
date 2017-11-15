@@ -6,7 +6,7 @@ export interface ISong {
     album: string
     artist: string
     rating: number
-    favourite: number
+    favourite: boolean
 }
 
 export interface ISongModel extends ISong, mongoose.Document {}

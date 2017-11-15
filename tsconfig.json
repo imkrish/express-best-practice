@@ -1,13 +1,16 @@
 {
     "compilerOptions": {
       "module": "commonjs",
-      "target": "es6",
+      "target": "es5",
       "outDir": "./dist",
       "mapRoot": "./dist",
       "sourceRoot": "./src",
       "sourceMap": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
-      "noImplicitAny": true
+      "noImplicitAny": true,
+      "lib": [
+          "es2015"
+      ]
     }
   }

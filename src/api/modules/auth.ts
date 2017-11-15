@@ -79,7 +79,7 @@ const getFreshUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((err: Error) => next(err))
 }
 
-const signToken = (id: string) => jwt.sign(
+export const signToken = (id: string) => jwt.sign(
     { id },
     appConfig.secrets.jwtSecret,
     { expiresIn: appConfig.expireTime },

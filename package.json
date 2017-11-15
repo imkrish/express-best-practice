@@ -8,8 +8,8 @@
     "tsc:w": "tsc -w -p ./tsconfig.json",
     "build": "tsc -p ./tsconfig.json && ncp './src/assets' './dist/assets'",
     "lint": "tslint src/**/*.ts --fix",
-    "test": "cross-env NODE_ENV=testing && tsc -p ./tsconfig.json && mocha src/**/*.spec.ts --recursive --color --growl",
-    "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- src/**/*.spec.ts --recursive --color --growl"
+    "test": "cross-env NODE_ENV=testing && tsc -p ./tsconfig.json && mocha dist/**/*.spec.js --recursive --color",
+    "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- dist/**/*.spec.js --recursive --color"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
