@@ -3,7 +3,7 @@ import { IAppConfig } from './IAppConfig'
 export const prodConfig: IAppConfig = {
     logging: false,
 
-    port: 4004,
+    port: 3003,
 
     db: {
         url: 'mongodb://localhost/jams',

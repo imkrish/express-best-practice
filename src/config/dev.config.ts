@@ -13,7 +13,7 @@ export const devConfig: IAppConfig = {
         jwtSecret: process.env.JWT_SECRET || 'abcdefghijklmnopqrst',
     },
 
-    expireTime: '1d',
+    expireTime: '30d',
 
-    disableAuth: false,
+    disableAuth: true,
 }
