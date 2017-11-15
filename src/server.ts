@@ -1,9 +1,9 @@
 import * as express from 'express'
-import { setupMiddleware } from './middleware/setupMiddleware'
-import { globalErrorHandling } from './middleware/globalErrorHandling'
 import { apiRouter } from './api/api.router'
 import { connectToMongoDB } from './db'
 import { authProtectMiddlewares, signinMiddlewares } from './api/modules/auth'
+import { setupMiddleware } from './middlewares/setupMiddleware'
+import { globalErrorHandling } from './middlewares/globalErrorHandling'
 
 // export the app for testing
 export const app = express()
