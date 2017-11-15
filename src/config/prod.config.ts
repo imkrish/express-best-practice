@@ -1,11 +1,13 @@
-export const appConfig = {
-    env: process.env.NODE_ENV || 'development',
+import { IAppConfig } from './IAppConfig'
 
+export const prodConfig: IAppConfig = {
     logging: false,
 
-    port: 3003,
+    port: 4004,
 
-    mongodbUri: 'mongodb://localhost/jams',
+    db: {
+        url: 'mongodb://localhost/jams',
+    },
 
     secrets: {
         jwtSecret: process.env.JWT_SECRET || 'abcdefghijklmnopqrst',

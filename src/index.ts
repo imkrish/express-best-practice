@@ -1,6 +1,6 @@
 import * as http from 'http'
 import { app } from './server'
-import { appConfig } from './config/appConfig'
+import { appConfig } from './config/app.config'
 
 // wrap with http server for hot module or web socket
 const server = http.createServer(app)

@@ -1,10 +1,10 @@
 import * as mongoose from 'mongoose'
-import { appConfig } from './config/appConfig'
+import { appConfig } from './config/app.config'
 
 (mongoose as any).Promise = global.Promise
 export const connectToMongoDB = () =>
     mongoose.connect(
-        appConfig.mongodbUri,
+        appConfig.db.url,
         { useMongoClient: true },
         (err) => {
             if (err) {
@@ -12,4 +12,4 @@ export const connectToMongoDB = () =>
             }
         },
     )
-    .then(() => console.info(`Connected to mongo db uri: ${appConfig.mongodbUri} successfully.`))
+    .then(() => console.info(`Connected to mongo db uri: ${appConfig.db.url} successfully.`))

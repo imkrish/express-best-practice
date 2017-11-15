@@ -1,9 +1,9 @@
 import * as jwt from 'jsonwebtoken'
 import * as expressJwt from 'express-jwt'
 import * as bcrypt from 'bcrypt'
-import { appConfig } from '../../config/appConfig'
 import { Request, Response, NextFunction } from 'express'
 import { User } from '../resources/user/user.model'
+import { appConfig } from '../../config/app.config'
 
 const ACCESS_TOKEN = 'access_token'
 
