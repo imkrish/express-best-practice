@@ -30,6 +30,7 @@ export const generateApiSpec = <T extends Document, U>(_model: Model<T>, resourc
           .set('Authorization', `Bearer ${jwt}`)
 
         expect(result).to.have.status(200)
+        // tslint:disable-next-line:no-unused-expression
         expect(result).to.be.json
       })
     })
@@ -42,6 +43,7 @@ export const generateApiSpec = <T extends Document, U>(_model: Model<T>, resourc
           .send(_newResource)
 
         expect(result).to.have.status(201)
+        // tslint:disable-next-line:no-unused-expression
         expect(result).to.be.json
       })
     })
