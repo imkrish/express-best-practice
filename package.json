@@ -5,11 +5,11 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"npm run tsc:w\" \"nodemon dist/index.js\"",
-    "tsc:w": "tsc -w -p ./dev.tsconfig.json",
-    "build": "tsc -p ./prod.tsconfig.json && ncp './src/assets' './dist/assets'",
+    "tsc:w": "tsc -w -p ./tsconfig.json",
+    "build": "tsc -p ./tsconfig.json && ncp './src/assets' './dist/assets'",
     "lint": "tslint src/**/*.ts --fix",
-    "test": "cross-env NODE_ENV=testing && tsc -p ./dev.tsconfig.json && mocha src/**/*.spec.ts --recursive --color --growl",
-    "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./dev.tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- src/**/*.spec.ts --recursive --color --growl"
+    "test": "cross-env NODE_ENV=testing && tsc -p ./tsconfig.json && mocha src/**/*.spec.ts --recursive --color --growl",
+    "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- src/**/*.spec.ts --recursive --color --growl"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
