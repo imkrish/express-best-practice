@@ -2,12 +2,8 @@ import { IAppConfig } from './IAppConfig'
 import { devConfig } from './dev.config'
 import { testConfig } from './test.config'
 import { prodConfig } from './prod.config'
-import { Modes } from './Modes'
 
-// set mode here
-const mode: Modes = Modes.dev
-
-process.env.NODE_ENV = mode
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 const env = process.env.NODE_ENV
 
