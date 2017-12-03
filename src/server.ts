@@ -4,6 +4,8 @@ import { connectToMongoDB } from './db'
 import { authProtectMiddlewares, signinMiddlewares } from './api/modules/auth'
 import { setupMiddleware } from './middlewares/setupMiddleware'
 import { globalErrorHandling } from './middlewares/globalErrorHandling'
+import { graphiqlExpress } from 'apollo-server-express'
+import { graphQLRouter } from './api/graphQLRouter'
 
 // export the app for testing
 export const app = express()
@@ -17,6 +19,8 @@ setupMiddleware(app)
 // setup the api
 app.use('/signin', signinMiddlewares)
 app.use('/api', authProtectMiddlewares, apiRouter)
+app.use('/graphql', graphQLRouter)
+app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
 // catch all
 app.all('*', (_req, res) => {

@@ -12,6 +12,7 @@
     "test:coverage": "cross-env NODE_ENV=testing && rm -rf coverage/* && tsc -p ./tsconfig.json && node --harmony_default_parameters ./node_modules/istanbul/lib/cli.js cover _mocha --harmony_default_parameters -- dist/**/*.spec.js --recursive --color"
   },
   "dependencies": {
+    "apollo-server-express": "^1.2.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
