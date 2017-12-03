@@ -1,5 +1,5 @@
 import { graphqlExpress } from 'apollo-server-express'
-import { GraphQLSchema, GraphQLObjectType } from 'graphql'
+import { GraphQLSchema, GraphQLObjectType, GraphQLNonNull } from 'graphql'
 import { UserType } from './resources/user/user.graphql'
 import { SongType } from './resources/song/song.graphql'
 import { PlaylistType } from './resources/playlist/playlist.graphql'
@@ -7,9 +7,9 @@ import { PlaylistType } from './resources/playlist/playlist.graphql'
 const rootType = new GraphQLObjectType({
     name: 'RootType',
     fields: {
-        user: { type: UserType },
-        song: { type: SongType },
-        playlist: { type: PlaylistType },
+        getMe: { type: new GraphQLNonNull(UserType) },
+        song: { type: new GraphQLNonNull(SongType) },
+        playlist: { type: new GraphQLNonNull(PlaylistType) },
 
     },
 })

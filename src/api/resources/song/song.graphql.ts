@@ -35,7 +35,7 @@ export const SongType = new GraphQLObjectType({
     },
 })
 
-const UpdatedSongInputType = new GraphQLInputObjectType({
+export const UpdatedSongInputType = new GraphQLInputObjectType({
     name: 'UpdatedSongInputType',
     fields: {
         id: {
@@ -62,7 +62,7 @@ const UpdatedSongInputType = new GraphQLInputObjectType({
     },
 })
 
-const NewSongType = new GraphQLInputObjectType({
+export const NewSongType = new GraphQLInputObjectType({
     name: 'NewSongType',
     fields: {
         title: {

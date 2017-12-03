@@ -20,7 +20,7 @@ setupMiddleware(app)
 app.use('/signin', signinMiddlewares)
 app.use('/api', authProtectMiddlewares, apiRouter)
 app.use('/graphql', graphQLRouter)
-app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
+app.get('/docs', graphiqlExpress({ endpointURL: '/graphql' }))
 
 // catch all
 app.all('*', (_req, res) => {

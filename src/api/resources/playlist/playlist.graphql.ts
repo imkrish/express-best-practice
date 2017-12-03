@@ -26,7 +26,7 @@ export const PlaylistType = new GraphQLObjectType({
     },
 })
 
-const UpdatedPlaylistInputType = new GraphQLInputObjectType({
+export const UpdatedPlaylistInputType = new GraphQLInputObjectType({
     name: 'UpdatedPlaylistInputType',
     fields: {
         id: {
