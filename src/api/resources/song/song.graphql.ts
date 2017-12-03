@@ -81,7 +81,7 @@ const NewSong = new GraphQLInputObjectType({
             type: GraphQLInt,
         },
         favorite: {
-            type: GraphQLBoolean
+            type: GraphQLBoolean,
         },
     },
 })
