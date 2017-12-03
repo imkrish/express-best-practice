@@ -8,8 +8,8 @@ import {
     GraphQLInputObjectType,
 } from 'graphql'
 
-const Song = new GraphQLObjectType({
-    name: 'Song',
+export const SongType = new GraphQLObjectType({
+    name: 'SongType',
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID),
@@ -35,8 +35,8 @@ const Song = new GraphQLObjectType({
     },
 })
 
-const UpdatedSong = new GraphQLInputObjectType({
-    name: 'Updated Song',
+const UpdatedSongInputType = new GraphQLInputObjectType({
+    name: 'UpdatedSongInputType',
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID),
@@ -62,8 +62,8 @@ const UpdatedSong = new GraphQLInputObjectType({
     },
 })
 
-const NewSong = new GraphQLInputObjectType({
-    name: 'New Song',
+const NewSongType = new GraphQLInputObjectType({
+    name: 'NewSongType',
     fields: {
         title: {
             type: new GraphQLNonNull(GraphQLString),

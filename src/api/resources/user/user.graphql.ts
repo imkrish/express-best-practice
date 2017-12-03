@@ -1,7 +1,7 @@
 import {GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInputObjectType, GraphQLNonNull} from 'graphql'
 
 export const UserType = new GraphQLObjectType({
-    name: 'User',
+    name: 'UserType',
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID)
@@ -19,7 +19,7 @@ export const UserType = new GraphQLObjectType({
 })
 
 export const UpdatedUserInputType = new GraphQLInputObjectType({
-    name: 'UpdatedUser',
+    name: 'UpdatedUserInputType',
     fields: {
         username: {
             type: new GraphQLNonNull(GraphQLString)
